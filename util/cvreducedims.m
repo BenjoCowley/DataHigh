@@ -112,7 +112,6 @@ function [projs mse like lat] = cvreducedims(D, alg, dims, handles)
 
     % Smooth data if necessary (automatically zero if GPFA selected)
     if get(handles.kern_slider,'Value') ~= 0
-disp('should not be here');
         for i = 1:length(D)
             D(i).data = smoother(D(i).data, get(handles.kern_slider,'Value'), handles.binWidth);
         end
@@ -214,7 +213,7 @@ disp('should not be here');
     end
     
     % need to recalculate lat for PCA, since that is on all data
-    [u sc lat] = princomp([D.data]');
+    [u sc lat] = pca([D.data]');
 
     delete(wbar);
 end
@@ -224,7 +223,7 @@ end
 function [mse projs lat] = PCACV(D, dim, fold, train_mask, test_mask)
 
     [train_data test_data forProj] = prepare_cv_data(D, train_mask, test_mask);
-    [u sc lat] = princomp(train_data');
+    [u sc lat] = pca(train_data');
     params.L = u(:,1:dim);
     params.d = mean(train_data,2);
     projs = [];
