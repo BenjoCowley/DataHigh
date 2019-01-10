@@ -128,7 +128,7 @@ function [newD C lat] = PCAreduce(D,dims)
 
     % Agglomerate all of the conditions, and perform PCA
     alldata = [D.data];
-    [u sc lat] = princomp(alldata');
+    [u sc lat] = pca(alldata');
 
     % For each condition, store the reduced version of each data vector
     index = 0;

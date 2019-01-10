@@ -121,7 +121,7 @@ function pca_button_Callback(hObject, eventdata, handles)
 %         end
 %     end
             
-    [u sc lat] = princomp([D.data]');
+    [u sc lat] = pca([D.data]');
     
     rotate_to_desired(hObject, handles, u(:,1:2)');
     
@@ -211,7 +211,7 @@ function pca_clustermeans_button_Callback(hObject, eventdata, handles)
     for icond = 1:length(conditions)
        m = [m mean([dh_handles.D(ismember({dh_handles.D.condition}, conditions{icond})).data],2)];
     end
-    [u sc lat] = princomp(m');
+    [u sc lat] = pca(m');
     
     rotate_to_desired(hObject, handles, u(:,1:2)');
 

@@ -246,7 +246,7 @@ end
 function plot_cov_ellipse(handles, trial)
 % plot 2d cov ellipses, existing in the first two pc space
 
-    [u sc lat] = princomp(handles.D(trial).data');
+    [u sc lat] = pca(handles.D(trial).data');
     p = ellipse(u(:,1:2)', cov(handles.D(trial).data'), zeros(size(u(:,1))));
     p = u(:,1:2) * p + repmat(mean(handles.D(trial).data,2), 1, size(p,2));
     p = handles.orths * p;
@@ -258,7 +258,7 @@ end
 
 function plot_first_pc(handles, trial)
 % plot the first pc for each cluster
-    [u sc lat] = princomp(handles.D(trial).data');
+    [u sc lat] = pca(handles.D(trial).data');
     p = handles.orths * (sqrt(lat(1))*[-u(:,1) u(:,1)] + mean(handles.D(trial).data,2)*ones(1,2));
     plot3(p(1,:), p(2,:), p(3,:), 'Color', [1 0 0]);
 end
@@ -410,7 +410,7 @@ function evolve_button_Callback(hObject, eventdata, handles)
             
         end
         
-        pause(.01);
+        pause(.05);
         
         if (~ishandle(handles.Projection3dFig))
             % user has closed out of Projection3d during a
@@ -434,7 +434,7 @@ function evolve_button_Callback(hObject, eventdata, handles)
                 return;
             end
             handles = guidata(hObject);
-            pause(.01);
+            pause(.05);
         end
         
 
